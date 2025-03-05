@@ -1,7 +1,19 @@
 import { Plus } from "lucide-react";
 import React from "react";
+import CardComponent from "./CardComponent";
 
 export default function AddNewProjectComponent() {
+
+  const AddMoreProjects = () => {
+    return (
+      <div className="mt-4">
+        <CardComponent />
+      </div>
+    
+    )
+        
+      
+  }
   return (
     <div>
       <button
@@ -63,7 +75,6 @@ export default function AddNewProjectComponent() {
                     id="projectName"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Type Project Name"
-                    required
                   />
                 </div>
 
@@ -79,7 +90,6 @@ export default function AddNewProjectComponent() {
                     name="dueDate"
                     id="dueDate"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    required
                   />
                 </div>
 
@@ -117,7 +127,7 @@ export default function AddNewProjectComponent() {
                 </div>
               </div>
               <div className="text-right">
-                <button
+                <button 
                   type="submit"
                   className="text-white inline-flex items-center bg-custom-sky-blue hover:bg-custom-sky-blue-500 focus:ring-4 focus:outline-none focus:ring-custom-sky-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-custom-sky-blue-500 dark:hover:bg-custom-sky-blue-500 dark:focus:ring-custom-sky-blue-500"
                 >
