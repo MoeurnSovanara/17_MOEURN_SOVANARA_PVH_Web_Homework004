@@ -1,10 +1,26 @@
 import React from "react";
 
-export default function FilterComponent() {
+export default function FilterComponent({sorted, setSorted}) {
   // prevent the page from reload
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  const handleSortedMaterial = (e) => {
+    let order = e.target.value;
+    let materials = [...sorted];
+    if (order === "A-Z") {
+      materials.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (order === "Z-A") {
+      materials.sort((a, b) => b.title.localeCompare(a.title));
+    }
+    setSorted(materials);
+  }
+
+ 
+
+    
+
 
   return (
     <form className="mt-4 mx-4 flex justify-between" onSubmit={handleSubmit}>
@@ -12,6 +28,7 @@ export default function FilterComponent() {
         <select
           id="filterLearningMaterials"
           name="filterLearningMaterials"
+          onChange={handleSortedMaterial}
           className="text-sm focus:ring-custom-sky-blue focus:border-custom-sky-blue block w-full p-4 focus:outline-none text-gray-400 border-none rounded-xl bg-light-gray"
         >
           <option hidden value="">

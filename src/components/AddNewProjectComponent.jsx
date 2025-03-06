@@ -4,16 +4,6 @@ import CardComponent from "./CardComponent";
 
 export default function AddNewProjectComponent() {
 
-  const AddMoreProjects = () => {
-    return (
-      <div className="mt-4">
-        <CardComponent />
-      </div>
-    
-    )
-        
-      
-  }
   return (
     <div>
       <button
