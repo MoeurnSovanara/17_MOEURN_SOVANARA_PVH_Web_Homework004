@@ -2,19 +2,64 @@ import { Plus } from "lucide-react";
 import React from "react";
 import CardComponent from "./CardComponent";
 
-export default function AddNewProjectComponent() {
+export default function AddNewProjectComponent({inputData}) {
+
+  const [projectName, setProjectName] = React.useState("");
+  const [dueDate, setDueDate] = React.useState("");
+  const [progress, setProgress] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [projects, setProjects] = React.useState([]);
+  
+  const handleSearchCard=(e)=>{
+
+  }
+
+  const searchCard = projects.filter(e => e.projectName.toLowerCase().includes(inputData.toLowerCase()));
+
+
+  const handleCreateProject = (e) => {
+      e.preventDefault();
+      const project = {
+        "projectName": projectName,
+        "dueDate": dueDate,	
+        "progress": progress,
+        "description": description
+      }
+
+      setProjects([...projects, project])
+      setProjectName("");
+      setDueDate("");
+      setProgress("");
+      setDescription("");
+  }
 
   return (
     <div>
-      <button
-        data-modal-target="crud-modal"
-        data-modal-toggle="crud-modal"
-        className=" text-white bg-custom-sky-blue hover:bg-custom-sky-blue-500 focus:ring-3 focus:outline-none focus:ring-custom-sky-blue-500  font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-custom-sky-blue-500 dark:hover:bg-custom-sky-blue-500  dark:focus:ring-custom-sky-blue-500  flex items-center gap-2"
-        type="button"
-      >
-        <Plus size={22} /> <span className="text-base">New Project</span>
-      </button>
+      <div>
+        <button
+          data-modal-target="crud-modal"
+          data-modal-toggle="crud-modal"
+          className=" text-white bg-custom-sky-blue hover:bg-custom-sky-blue-500 focus:ring-3 focus:outline-none focus:ring-custom-sky-blue-500  font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-custom-sky-blue-500 dark:hover:bg-custom-sky-blue-500  dark:focus:ring-custom-sky-blue-500  flex items-center gap-2"
+          type="button"
+        >
+          <Plus size={22} /> <span className="text-base">New Project</span>
+        </button>
 
+        <div className="mt-5 absolute left-0 w-[75%] gap-4 grid grid-cols-3 scrollbar-hide overflow-auto h-[57vh]">
+          {
+            searchCard.map ((project, index) => {
+              return (
+                <CardComponent key={index} 
+                projectName={project.projectName}
+                dueDate={project.dueDate}
+                progress={project.progress}
+                description={project.description}
+                />
+              )
+            })
+          }
+        </div>
+      </div>
       <div
         id="crud-modal"
         tabIndex="-1"
@@ -60,6 +105,8 @@ export default function AddNewProjectComponent() {
                     Project Name
                   </label>
                   <input
+                    onChange={(e) => setProjectName(e.target.value)}
+                    value={projectName}
                     type="text"
                     name="projectName"
                     id="projectName"
@@ -76,6 +123,8 @@ export default function AddNewProjectComponent() {
                     Due Date
                   </label>
                   <input
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
                     type="date"
                     name="dueDate"
                     id="dueDate"
@@ -91,7 +140,9 @@ export default function AddNewProjectComponent() {
                     Progress
                   </label>
                   <select
+                    onChange={(e) => setProgress(e.target.value)}
                     id="progress"
+                    value={progress}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   >
                     <option defaultValue="">Select Progress</option>
@@ -109,6 +160,8 @@ export default function AddNewProjectComponent() {
                     Project Description
                   </label>
                   <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                     id="description"
                     rows="4"
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -119,6 +172,7 @@ export default function AddNewProjectComponent() {
               <div className="text-right">
                 <button 
                   type="submit"
+                  onClick={handleCreateProject}
                   className="text-white inline-flex items-center bg-custom-sky-blue hover:bg-custom-sky-blue-500 focus:ring-4 focus:outline-none focus:ring-custom-sky-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-custom-sky-blue-500 dark:hover:bg-custom-sky-blue-500 dark:focus:ring-custom-sky-blue-500"
                 >
                   Create
