@@ -1,3 +1,4 @@
+import {format} from 'date-fns';
 export const learningMaterials = [
   {
     id: 1,
@@ -101,3 +102,6 @@ export const learningMaterials = [
     isFavorite: true,
   },
 ];
+learningMaterials.forEach((item)=>{
+  item.postedAt = format(new Date(item.postedAt), 'EEE, MMM dd, yyyy');
+})

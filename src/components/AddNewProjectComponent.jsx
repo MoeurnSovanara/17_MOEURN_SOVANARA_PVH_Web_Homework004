@@ -10,10 +10,6 @@ export default function AddNewProjectComponent({inputData}) {
   const [description, setDescription] = React.useState("");
   const [projects, setProjects] = React.useState([]);
   
-  const handleSearchCard=(e)=>{
-
-  }
-
   const searchCard = projects.filter(e => e.projectName.toLowerCase().includes(inputData.toLowerCase()));
 
 
@@ -112,9 +108,14 @@ export default function AddNewProjectComponent({inputData}) {
                     id="projectName"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Type Project Name"
+
                   />
                 </div>
-
+                {projectName === "" && (
+                  <div className="col-span-2">
+                    <p className="text-sm text-red-500 dark:text-red-400">* Project Name is required.</p>
+                  </div>
+                )}
                 <div className="col-span-2">
                   <label
                     htmlFor="dueDate"
@@ -131,6 +132,13 @@ export default function AddNewProjectComponent({inputData}) {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   />
                 </div>
+                {dueDate === "" ? (
+                  <p className="text-sm text-red-500 dark:text-red-400">* Due Date is required.</p>
+                ) : (
+                  new Date(dueDate) < new Date() && (
+                    <p className="text-sm text-red-500 dark:text-red-400">* Due Date should be greater than or equal to current date.</p>
+                  )
+                )}
 
                 <div className="col-span-2">
                   <label
@@ -152,6 +160,9 @@ export default function AddNewProjectComponent({inputData}) {
                     <option value="25">25</option>
                   </select>
                 </div>
+                {progress === "" && (
+                  <p className="text-sm text-red-500 dark:text-red-400">* Progress is required.</p>
+                )}
                 <div className="col-span-2">
                   <label
                     htmlFor="description"
@@ -171,6 +182,11 @@ export default function AddNewProjectComponent({inputData}) {
               </div>
               <div className="text-right">
                 <button 
+                disabled={
+                  projectName === "" ||
+                  dueDate === "" ||
+                  progress === ""
+                }
                   type="submit"
                   onClick={handleCreateProject}
                   className="text-white inline-flex items-center bg-custom-sky-blue hover:bg-custom-sky-blue-500 focus:ring-4 focus:outline-none focus:ring-custom-sky-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-custom-sky-blue-500 dark:hover:bg-custom-sky-blue-500 dark:focus:ring-custom-sky-blue-500"

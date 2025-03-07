@@ -2,6 +2,27 @@ import { EllipsisVertical } from "lucide-react";
 import React from "react";
 
 export default function CardComponent({projectName, dueDate, progress, description}) {
+  const dateValidation = (dueDate) => {
+    const currentDate = new Date();
+    const dueDateObj = new Date(dueDate);
+  
+    // Calculate the difference in time (milliseconds)
+    const diffTime = dueDateObj - currentDate;
+  
+    // Convert milliseconds to days
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+    // Handle different cases
+    if (diffDays < 0) return "Expired";
+    if (diffDays === 1) return "1 day left";
+    if (diffDays < 7) return `${diffDays} days left`;
+    if (diffDays === 7) return "1 week left";
+    if (diffDays < 28) return `${Math.floor(diffDays / 7)} weeks left`;
+    if (diffDays === 28) return "1 month left";
+    return `${Math.floor(diffDays / 30)} months left`; 
+  };
+  
+  
   return (
     <div>
       <div className="max-w-sm p-6 bg-white rounded-2xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -43,8 +64,9 @@ export default function CardComponent({projectName, dueDate, progress, descripti
 
         {/* deadline */}
         <div className="flex justify-end">
-          <p className="font-medium bg-light-gray py-1.5 px-4 rounded-lg max-w-28 text-center">
-            1 day left
+          <p className="font-medium bg-light-gray py-1.5 px-4 rounded-lg max-w-50 text-center">
+            {dateValidation(dueDate)}
+            
           </p>
         </div>
       </div>
